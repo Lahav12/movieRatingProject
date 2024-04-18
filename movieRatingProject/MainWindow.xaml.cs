@@ -25,32 +25,49 @@ namespace movieRatingProject
         public MainWindow()
         {
             InitializeComponent();
-            Movie_Click(null, null);
+            myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;   //hide the Frame Navigation
+                                                                              // XAML-אפשר גם ישירות מקובץ ה
             
         }
 
-        private void Movie_Click(object sender, RoutedEventArgs e)
+        private void HamburgerMenuItem_Selected_3(object sender, RoutedEventArgs e)
         {
-            MovieDB movieDB = new MovieDB();
-            var result = movieDB.SelectAll();
+            if (myFrame.NavigationService.CanGoBack)
+                myFrame.NavigationService.GoBack();
+        }
 
-            for (int i = 0; i < result.Count; i++)
+        private void HamburgerMenuItem_Selected_4(object sender, RoutedEventArgs e)
+        {
+
+            //if (myFrame.NavigationService.CanGoForward)
+            //    myFrame.NavigationService.GoForward();
+            GlobalVariables.LogedIn = false;
+
+        }
+        private void HomeItem_Selected(object sender, RoutedEventArgs e)
+        {
+            /*this.myFrame.Navigate(new HomePage());*/   // Frame-דיפדוף תוך שימוש ישיר בשם ה
+            
+            if (!GlobalVariables.LogedIn)
             {
-                lstView2.Items.Add(new Movie
-                {
-                    MovieName = result[i].MovieName,
-                    Rating = result[i].Rating,
-                    Duration = result[i].Duration,
-                    Genre = result[i].Genre,
-                    ReleaseDate = result[i].ReleaseDate
-                });
+                home.Text = "Loged Out";
+            }
+            else if (GlobalVariables.LogedIn)
+            {
+                home.Text = "Loged In";
             }
             
         }
 
-        private void lstView2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Item1_Selected(object sender, RoutedEventArgs e)
         {
-            
+            //this.myFrame.Navigate(new StudentList_Page1());
+            this.myFrame.Navigate(new MainPage());
+        }
+
+        private void Item2_Selected(object sender, RoutedEventArgs e)
+        {
+            this.myFrame.Navigate(new LoginPage());
         }
     }
 }

@@ -58,6 +58,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -69,6 +73,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GlobalVariables.cs" />
+    <Compile Include="LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -114,6 +122,27 @@
       <Project>{acd4683d-c298-4bbe-a2f6-fd391533283b}</Project>
       <Name>ViewModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\AddPerson.png" />
+    <Resource Include="Assets\arrow_left.png" />
+    <Resource Include="Assets\arrow_right.png" />
+    <Resource Include="Assets\favorite.png" />
+    <Resource Include="Assets\home.png" />
+    <Resource Include="Assets\landscape.jpeg" />
+    <Resource Include="Assets\Left.png" />
+    <Resource Include="Assets\list.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\mountain.jpeg" />
+    <Resource Include="Assets\nature.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\person.png" />
+    <Resource Include="Assets\Right.png" />
+    <Resource Include="Assets\search.png" />
+    <Resource Include="Assets\sunset.jpeg" />
+    <Resource Include="Assets\wow.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

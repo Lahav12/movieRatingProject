@@ -7,28 +7,31 @@
         xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
-    
-    <Grid>
 
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="700"/>
-        </Grid.ColumnDefinitions>-->
-        
-        <ListView Name="lstView2"   SelectionChanged="lstView2_SelectionChanged">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Movie Name" Width="120" DisplayMemberBinding="{Binding MovieName}"/>
-                    <GridViewColumn Header="Rating" Width="120" DisplayMemberBinding="{Binding Rating}"/>
-                    <GridViewColumn Header="Duration" Width="120" DisplayMemberBinding="{Binding Duration}"/>
-                    <GridViewColumn Header="Genre" Width="120" DisplayMemberBinding="{Binding Genre}"/>
-                    <GridViewColumn Header="Release Date" Width="120" DisplayMemberBinding="{Binding ReleaseDate}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
 
-        <Button Name="Movie" Width="120" Height="80" Click="Movie_Click" Margin="646,22,27.6,298" />
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
+        <HamburgerMenu:HamburgerMenu x:Name="MyMenu"  MenuIconColor="White" SelectionIndicatorColor="Pink" MenuItemForeground="Black" HorizontalAlignment="Left" Grid.Column="0" MaxWidth="120" >
+            <HamburgerMenu:HamburgerMenu.Background>
+                <ImageBrush ImageSource="Assets\mountain.jpeg" Stretch="None" x:Name="backgroundImg"/>
+            </HamburgerMenu:HamburgerMenu.Background>
+            <HamburgerMenu:HamburgerMenu.Content>
+                <HamburgerMenu:HamburgerMenuItem x:Name="Dummy" Text="Dummy"  Visibility="Collapsed" />
+                <HamburgerMenu:HamburgerMenuItem x:Name="home" Icon="Assets/home.png" Text="" SelectionCommand="{Binding ElementName=this_}" Selected="HomeItem_Selected" />
+                <HamburgerMenu:HamburgerMenuItem Icon="Assets/search.png"   Text="Page1" SelectionCommand="{Binding ElementName=this_}" Selected="Item1_Selected" />
+                <HamburgerMenu:HamburgerMenuItem Icon="Assets/favorite.png" Text="Page2" SelectionCommand="{Binding ElementName=this_}" Selected="Item2_Selected" />
+                <!-- <HamburgerMenu:HamburgerMenuItem Icon="Assets/list.png" Text="Lists" SelectionCommand="{Binding ElementName=this_}" />
+                <HamburgerMenu:HamburgerMenuItem Icon="Assets/person.png" Text="Profile" ToolTip="Profile" SelectionCommand="{Binding ElementName=this_}" />-->
+                <HamburgerMenu:HamburgerMenuItem  x:Name="Backward" Icon="Assets/Left.png"  Text="Backward" ToolTip="Backward"  Selected="HamburgerMenuItem_Selected_3" SelectionCommand="{Binding ElementName=this_}" />
+                <HamburgerMenu:HamburgerMenuItem  x:Name="Forward" Icon="Assets/Right.png"  Text="Forward" ToolTip="Forward" Selected="HamburgerMenuItem_Selected_4"  SelectionCommand="{Binding ElementName=this_}" />
+            </HamburgerMenu:HamburgerMenu.Content>
+        </HamburgerMenu:HamburgerMenu>
+
+        <Frame x:Name="myFrame" Grid.Column="1" Source="MainPage.xaml"  />
+        <!--<Frame x:Name="myFrame" Grid.Column="1" Source="Home.xaml" NavigationUIVisibility="Hidden" />-->
     </Grid>
 </Window>

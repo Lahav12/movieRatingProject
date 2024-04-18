@@ -16,9 +16,14 @@ namespace Testing
             //int h = personDB.CreatePerson(new Person { DateOfBirth = DateTime.Now, FirstName = "Ariel", LastName = "Efroni" });
             //int i = 1;
 
-            MovieDB movieDB = new MovieDB();
-            var result = movieDB.SelectAll();
-            Console.WriteLine(result[0].ID);
+            //MovieDB movieDB = new MovieDB();
+            //var result = movieDB.SelectAll();
+            //Console.WriteLine(result[0].ID);
+
+            UserDB userDB = new UserDB();
+            UserList result = userDB.SelectAll();
+
+            Console.WriteLine(result[0].Password);
         }
     }
 }

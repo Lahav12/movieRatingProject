@@ -17,9 +17,10 @@ namespace ViewModel
 
         }
 
-        public UserList SelectALL()
+        public UserList SelectAll()
         {
-            _command.CommandText = "SELECT * from" + _tableName;
+            _command.CommandText = "select tblPersons.*, tblUsers.* from tblUsers inner join tblPersons on " +
+                "tblPersons.personID = tblUsers.personID";
             UserList lst = Select();
             return lst;
         }
