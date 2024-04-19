@@ -25,39 +25,39 @@ namespace ViewModel
             return lst;
         }
 
-        //public bool CreatePerson(User user)
-        //{
-        //    try
-        //    {
-                
-        //        PersonDB pdb = new PersonDB();
-        //        int pid = pdb.CreatePerson(user);
+        public bool CreateUser(User user)
+        {
+            try
+            {
 
-        //        _command.Connection = _connection;
-        //        _connection.Open();
+                PersonDB pdb = new PersonDB();
+                int pid = pdb.CreatePerson(user);
 
-        //        _command.CommandText = string.Format("insert into {0} (firstName, lastName, dateOfBirth) " +
-        //            "values ('{1}', '{2}', '{3}') ;"
-        //           , _tableName, person.FirstName, person.LastName, person.DateOfBirth.Date.ToString("yyyy-MM-dd"));
-        //        _command.ExecuteNonQuery());
-        //        return true;
+                _command.Connection = _connection;
+                _connection.Open();
 
-        //    }
-        //    catch (Exception ex)
-        //    {
+                _command.CommandText = string.Format("insert into tblUsers (userName, password, email, phone, personID, isAdmin) " +
+                    "values ('{0}', '{1}', '{2}', '{3}', {4}, 0);"
+                   , user.UserName, user.Password, user.Email, user.Phone, pid);
+                _command.ExecuteNonQuery();
+                return true;
 
-        //        System.Diagnostics.Debug.WriteLine(ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        if (_reader != null)
-        //            _reader.Close();
-        //        if (_connection.State == System.Data.ConnectionState.Open)
-        //            _connection.Close();
-        //    }
+            }
+            catch (Exception ex)
+            {
 
-        //    return false;
-        //}
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (_reader != null)
+                    _reader.Close();
+                if (_connection.State == System.Data.ConnectionState.Open)
+                    _connection.Close();
+            }
+
+            return false;
+        }
 
         public UserList SelectByID(int id)
         {

@@ -17,14 +17,15 @@
 
         <HamburgerMenu:HamburgerMenu x:Name="MyMenu"  MenuIconColor="White" SelectionIndicatorColor="Pink" MenuItemForeground="Black" HorizontalAlignment="Left" Grid.Column="0" MaxWidth="120" >
             <HamburgerMenu:HamburgerMenu.Background>
-                <ImageBrush ImageSource="Assets\mountain.jpeg" Stretch="None" x:Name="backgroundImg"/>
+                <ImageBrush ImageSource="Assets\menuBackground.jpg" Stretch="None" x:Name="backgroundImg"/>
             </HamburgerMenu:HamburgerMenu.Background>
             <HamburgerMenu:HamburgerMenu.Content>
+                <HamburgerMenu:HamburgerMenuItem x:Name="Profile" Icon="Assets/AddPerson.png" SelectionCommand="{Binding ElementName=this }" Selected="Profile_Selected"/>
                 <HamburgerMenu:HamburgerMenuItem x:Name="Dummy" Text="Dummy"  Visibility="Collapsed" />
                 <HamburgerMenu:HamburgerMenuItem x:Name="home" Icon="Assets/home.png" Text="" SelectionCommand="{Binding ElementName=this_}" Selected="HomeItem_Selected" />
-                <HamburgerMenu:HamburgerMenuItem Icon="Assets/search.png"   Text="Page1" SelectionCommand="{Binding ElementName=this_}" Selected="Item1_Selected" />
+                <HamburgerMenu:HamburgerMenuItem Icon="Assets/y.jpg"   Text="Page1" SelectionCommand="{Binding ElementName=this_}" Selected="Item1_Selected" />
                 <HamburgerMenu:HamburgerMenuItem Icon="Assets/favorite.png" Text="Page2" SelectionCommand="{Binding ElementName=this_}" Selected="Item2_Selected" />
-                <!-- <HamburgerMenu:HamburgerMenuItem Icon="Assets/list.png" Text="Lists" SelectionCommand="{Binding ElementName=this_}" />
+                 <!--<HamburgerMenu:HamburgerMenuItem Icon="Assets/list.png" Text="Lists" SelectionCommand="{Binding ElementName=this_}" />
                 <HamburgerMenu:HamburgerMenuItem Icon="Assets/person.png" Text="Profile" ToolTip="Profile" SelectionCommand="{Binding ElementName=this_}" />-->
                 <HamburgerMenu:HamburgerMenuItem  x:Name="Backward" Icon="Assets/Left.png"  Text="Backward" ToolTip="Backward"  Selected="HamburgerMenuItem_Selected_3" SelectionCommand="{Binding ElementName=this_}" />
                 <HamburgerMenu:HamburgerMenuItem  x:Name="Forward" Icon="Assets/Right.png"  Text="Forward" ToolTip="Forward" Selected="HamburgerMenuItem_Selected_4"  SelectionCommand="{Binding ElementName=this_}" />

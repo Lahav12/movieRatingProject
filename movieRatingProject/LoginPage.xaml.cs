@@ -54,5 +54,10 @@ namespace movieRatingProject
             if (!GlobalVariables.LogedIn)
                 UserNameText.Text = "Not";
         }
+
+        private void RegisterBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new RegisterPage());
+        }
     }
 }

@@ -69,5 +69,10 @@ namespace movieRatingProject
         {
             this.myFrame.Navigate(new LoginPage());
         }
+
+        public void Profile_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
