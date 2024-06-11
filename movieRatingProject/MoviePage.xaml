@@ -8,22 +8,67 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MoviePage">
 
-    <Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Visible">
+        <Grid Background="Gray">
+            
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.75*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-        <Image Source="Assets/Poster.png" Margin="216,10,28,204.6" Grid.Column="1" x:Name="PosterImage">
+                <Label Content="" FontSize="30" x:Name="MovieTitle" Grid.Row="0" Grid.Column="0"/>
+                <TextBlock Text="description" FontSize="30" Grid.Row="1" Grid.Column="0"  x:Name="DescriptionText">
 
-        </Image>
+                </TextBlock>
+            </Grid>
+            
+            <Image Source="Assets/Poster.png" Grid.Row="0" Grid.Column="0" x:Name="PosterImage">
 
-        <TextBlock Text="סרט מטורףףףףףףףףףףף" FontSize="30" Grid.ColumnSpan="2" Margin="211,56,227,221.6" FlowDirection="RightToLeft" x:Name="DescriptionText">
+            </Image>
 
-        </TextBlock>
+            
 
-        <TextBlock Text="" FontSize="70" Margin="36,56,236,256.6" x:Name="ScoreText"/>
-        <ScrollBar Grid.Column="1" HorizontalAlignment="Left" Margin="384,0,-1,0" VerticalAlignment="Top" Height="440" Width="17"/>
+            
+
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="" x:Name="Year" TextAlignment="Center" HorizontalAlignment="Center" FontSize="20" Grid.Row="0"/>
+                <TextBlock Text="" x:Name="Genre" TextAlignment="Center" HorizontalAlignment="Center" FontSize="20" Grid.Row="2"/>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="" Grid.Column="0" Grid.Row="0" FontSize="70" x:Name="ScoreText"/>
+                <Button Grid.Column="0" Grid.Row="1" Content="Change text" x:Name="ScoreChangeBtn" Click="ScoreChangeBtn_Click"/>
+            </Grid>    
+            
+            
+
     </Grid>
+    </ScrollViewer>
 </Page>
