@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using Model;
 using ViewModel;
 
@@ -27,11 +28,36 @@ namespace movieRatingProject
             InitializeComponent();
         }
 
+        //private void RegisterBtn_Click(object sender, RoutedEventArgs e)
+        //{ 
+        //    UserDB userDB = new UserDB();
+        //    if (FormValidation())
+        //    {
+        //        bool registered = userDB.CreateUser(new User
+        //        {
+        //            FirstName = FirstNameText.Text,
+        //            LastName = LastNameText.Text,
+        //            UserName = UserNameText.Text,
+        //            Password = PasswordText.Text,
+        //            Email = EmailText.Text,
+        //            Phone = PhoneText.Text,
+        //            DateOfBirth = DateText.SelectedDate.Value
+        //        });
+        //    }
+
+        //    //if (registered)
+        //    //    FirstNameText.Text = "Registered";
+        //    //else
+        //    //    FirstNameText.Text = "Not";
+        //}
+
         private void RegisterBtn_Click(object sender, RoutedEventArgs e)
-        { 
-            UserDB userDB = new UserDB();
+        {
+            ErrorTextBlock.Text = string.Empty; // Clear previous error messages
+
             if (FormValidation())
             {
+                UserDB userDB = new UserDB();
                 bool registered = userDB.CreateUser(new User
                 {
                     FirstName = FirstNameText.Text,
@@ -39,61 +65,134 @@ namespace movieRatingProject
                     UserName = UserNameText.Text,
                     Password = PasswordText.Text,
                     Email = EmailText.Text,
-                    Phone = ""
+                    Phone = PhoneText.Text,
+                    DateOfBirth = DateText.SelectedDate.Value
                 });
-            }
 
-            //if (registered)
-            //    FirstNameText.Text = "Registered";
-            //else
-            //    FirstNameText.Text = "Not";
+                if (registered)
+                    MessageBox.Show("Registered successfully!");
+                else
+                    ErrorTextBlock.Text = "Registration failed.";
+            }
         }
 
         private bool FormValidation()
         {
             bool valid = true;
 
-            //Under 10 Check
+            // Length Check
             if (OverTen(FirstNameText.Text))
             {
-                FirstNameText.Text = "First Name Must Be Under 10 Characters";
+                ErrorTextBlock.Text += "First Name must be under 10 characters.\n";
                 valid = false;
             }
             if (OverTen(LastNameText.Text))
             {
-                LastNameText.Text = "Last Name Must Be Under 10 Characters";
+                ErrorTextBlock.Text += "Last Name must be under 10 characters.\n";
                 valid = false;
             }
             if (OverTen(UserNameText.Text))
-            { 
-                UserNameText.Text = "User Name Must Be Under 10 Characters";
+            {
+                ErrorTextBlock.Text += "User Name must be under 10 characters.\n";
                 valid = false;
             }
             if (OverTen(PasswordText.Text))
             {
-                PasswordText.Text = "Password Must Be Under 10 Characters";
+                ErrorTextBlock.Text += "Password must be under 10 characters.\n";
                 valid = false;
             }
-            //if (IsUnderTen(PhoneText.Text))
-            //    PhoneText.Text = "First Name Must Be Under 10 Characters";
-            //    valid = false;
 
-            //Password Confirmation
+            // Password Confirmation
             if (PasswordText.Text != ConfirmPasswordText.Text)
             {
-                ConfirmPasswordText.Text = "Password Must Be Identical";
+                ErrorTextBlock.Text += "Passwords must be identical.\n";
                 valid = false;
             }
 
+            // Not null check
+            valid &= NotNull(FirstNameText, "First Name");
+            valid &= NotNull(LastNameText, "Last Name");
+            valid &= NotNull(UserNameText, "User Name");
+            valid &= NotNull(PasswordText, "Password");
+            valid &= NotNull(ConfirmPasswordText, "Confirm Password");
+
+            // Date of birth check
+            if (DateText.SelectedDate == null)
+            {
+                ErrorTextBlock.Text += "You must select a date of birth.\n";
+                valid = false;
+            }
 
             return valid;
         }
 
+        private bool NotNull(TextBox value, string fieldName)
+        {
+            if (string.IsNullOrWhiteSpace(value.Text))
+            {
+                ErrorTextBlock.Text += $"{fieldName} cannot be empty.\n";
+                return false;
+            }
+            return true;
+        }
+
+        private bool NotNull(PasswordBox value, string fieldName)
+        {
+            if (string.IsNullOrWhiteSpace(value.Password))
+            {
+                ErrorTextBlock.Text += $"{fieldName} cannot be empty.\n";
+                return false;
+            }
+            return true;
+        }
+
         private bool OverTen(string str)
         {
-            if (str.Length > 10)
-                return true;
-            return false;
+            return str.Length > 10;
+        }
+
+        private void uploadImageBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Image Files|" +
+                "*.jpg;*.gif;*jpeg;*bmp;";
+            saveFileDialog1.Title = "Save an Image File";
+            saveFileDialog1.InitialDirectory = @"C:\Users\orlah\source\repos\movieRatingProject\movieRatingProject\Assets\";
+
+            saveFileDialog1.ShowDialog();
+
+            if (saveFileDialog1.FileName != "")
+            {
+                // Saves the Image via a FileStream created by the OpenFile method.
+                System.IO.FileStream fs =
+                    (System.IO.FileStream)saveFileDialog1.OpenFile();
+                // Saves the Image in the appropriate ImageFormat based upon the
+                // File type selected in the dialog box.
+                // NOTE that the FilterIndex property is one-based.
+                //switch (saveFileDialog1.FilterIndex)
+                //{
+                //    case 1:
+                //        this.button2.Image.Save(fs,
+                //          System.Drawing.Imaging.ImageFormat.Jpeg);
+                //        break;
+
+                //    case 2:
+                //        this.button2.Image.Save(fs,
+                //          System.Drawing.Imaging.ImageFormat.Bmp);
+                //        break;
+
+                //    case 3:
+                //        this.button2.Image.Save(fs,
+                //          System.Drawing.Imaging.ImageFormat.Gif);
+                //        break;
+                //}
+
+                fs.Close();
+            }
+
+
         }
     }
+
+    
 }

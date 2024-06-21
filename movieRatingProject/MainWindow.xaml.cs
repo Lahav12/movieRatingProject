@@ -20,59 +20,91 @@ namespace movieRatingProject
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;   //hide the Frame Navigation
-                                                                              // XAML-אפשר גם ישירות מקובץ ה
-            
+            myFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden; // Hide the Frame Navigation
+            UpdateMenu();
         }
 
         private void HamburgerMenuItem_Selected_3(object sender, RoutedEventArgs e)
         {
-            if (myFrame.NavigationService.CanGoBack)
-                myFrame.NavigationService.GoBack();
+
         }
 
         private void HamburgerMenuItem_Selected_4(object sender, RoutedEventArgs e)
         {
 
-            //if (myFrame.NavigationService.CanGoForward)
-            //    myFrame.NavigationService.GoForward();
-            GlobalVariables.LogedIn = false;
-
-        }
-        private void HomeItem_Selected(object sender, RoutedEventArgs e)
-        {
-            /*this.myFrame.Navigate(new HomePage());*/   // Frame-דיפדוף תוך שימוש ישיר בשם ה
-            
-            if (!GlobalVariables.LogedIn)
-            {
-                home.Text = "Loged Out";
-            }
-            else if (GlobalVariables.LogedIn)
-            {
-                home.Text = "Loged In";
-            }
-            
-        }
-
-        private void Item1_Selected(object sender, RoutedEventArgs e)
-        {
-            //this.myFrame.Navigate(new StudentList_Page1());
-            this.myFrame.Navigate(new MainPage());
         }
 
         private void Item2_Selected(object sender, RoutedEventArgs e)
         {
-            this.myFrame.Navigate(new LoginPage());
+
         }
 
-        public void Profile_Selected(object sender, RoutedEventArgs e)
+        private void HomeItem_Selected(object sender, RoutedEventArgs e)
         {
+            this.myFrame.Navigate(new FilmLibrary());
+        }
 
+        private void AdminPage_Selected(object sender, RoutedEventArgs e)
+        {
+            if (GlobalVariables.user != null && GlobalVariables.user.IsAdmin)
+            {
+                this.myFrame.Navigate(new AdminPage());
+            }
+            else
+            {
+                MessageBox.Show("Access Denied. Admins only.");
+            }
+        }
+
+        private void Profile_Selected(object sender, RoutedEventArgs e)
+        {
+            var page = new LoginPage();
+            page.LoginEvent += new EventHandler(LoginPage_LoggedIn);
+            this.myFrame.Navigate(page);
+        }
+
+        private void LoginPage_LoggedIn(object sender, EventArgs e)
+        {
+            UpdateMenu();
+        }
+
+        private void Logout_Selected(object sender, RoutedEventArgs e)
+        {
+            GlobalVariables.user = null;
+            GlobalVariables.LogedIn = false;
+            UpdateMenu();
+            this.myFrame.Navigate(new FilmLibrary()); // Navigate to a home or login page after logout
+        }
+
+        private void UpdateMenu()
+        {
+            if (GlobalVariables.user != null)
+            {
+                LoginBtn.Visibility = Visibility.Collapsed;
+                
+                if (GlobalVariables.user.IsAdmin)
+                {
+                    AdminBtn.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    AdminBtn.Visibility = Visibility.Collapsed;
+                }
+                LogOut.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                LoginBtn.Visibility = Visibility.Visible;
+                AdminBtn.Visibility = Visibility.Collapsed;
+                LogOut.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

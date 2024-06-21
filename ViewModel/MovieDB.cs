@@ -14,6 +14,32 @@ namespace ViewModel
         {
 
         }
+        
+        public bool SetRating(int movieID, double rating)
+        {
+            try
+            {
+                _command.Connection = _connection;
+                _connection.Open();
+
+                _command.CommandText = string.Format("update tblMovies set rating = {0} where movieID = {1}", rating, movieID);
+                double id = (double)(_command.ExecuteNonQuery());
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (_reader != null)
+                    _reader.Close();
+                if (_connection.State == System.Data.ConnectionState.Open)
+                    _connection.Close();
+            }
+            return false;
+        }
 
         public MovieList SelectAll()
         {
@@ -75,12 +101,13 @@ namespace ViewModel
                     movie.ID = Convert.ToInt32(_reader["movieID"]);
                     movie.MovieName = Convert.ToString(_reader["movieName"]);
                     movie.Rating = Convert.ToInt32(_reader["rating"]);
-                    //movie.Year = Convert.ToInt32(_reader["year"]);
                     movie.Duration = Convert.ToInt32(_reader["duration"]);
                     movie.Description = Convert.ToString(_reader["description"]);
                     movie.Genre = Convert.ToString(_reader["genre"]);
-                    movie.ReleaseDate = Convert.ToDateTime(_reader["releaseDate"]);
-                    movie.Poster = (byte[])_reader["poster"];
+                    movie.Year = Convert.ToInt32(_reader["year"]);
+                    // movie.PosterPath = "Posters/" + (string)_reader["posterR"];
+                    movie.PosterPath = (string)_reader["posterR"];
+                    // movie.MovieImage = (byte[])_reader["Image"];
                     list.Add(movie);
                 }
             }
@@ -97,6 +124,35 @@ namespace ViewModel
                     _connection.Close();
             }
             return list;
+        }
+
+        public int CreateMovie(Movie movie)
+        {
+            try
+            {
+                _command.Connection = _connection;
+                _connection.Open();
+
+                _command.CommandText = string.Format("insert into tblMovies (movieName, rating, genre, duration, description, year, posterR) " +
+                    "values ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}') ;" +
+                    " SELECT SCOPE_IDENTITY(); ", movie.MovieName, 0, movie.Genre, movie.Duration, movie.Description, movie.Year, movie.PosterPath);
+                //_command.Parameters.Add("@Image",movie.MovieImage);
+                int id = (int)((decimal)_command.ExecuteScalar());
+                return id;
+            }
+            catch (Exception ex)
+            {
+
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (_reader != null)
+                    _reader.Close();
+                if (_connection.State == System.Data.ConnectionState.Open)
+                    _connection.Close();
+            }
+            return -1;
         }
     }
 }

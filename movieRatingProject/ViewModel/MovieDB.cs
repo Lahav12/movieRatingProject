@@ -80,6 +80,7 @@ namespace ViewModel
                     movie.Description = Convert.ToString(_reader["description"]);
                     movie.Genre = Convert.ToString(_reader["genre"]);
                     movie.ReleaseDate = Convert.ToDateTime(_reader["releaseDate"]);
+                    movie.MovieImage = (byte[])_reader["Image"];
                     //מה עושים עם פוסטר?
 
                     list.Add(movie);

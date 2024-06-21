@@ -22,6 +22,7 @@ namespace movieRatingProject
     /// </summary>
     public partial class LoginPage : Page
     {
+        public EventHandler LoginEvent;
         public LoginPage()
         {
             InitializeComponent();
@@ -30,29 +31,22 @@ namespace movieRatingProject
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
             UserDB userDB = new UserDB();
-            UserList result = userDB.SelectAll();
-            
+            UserList user = userDB.SelectAll();
 
-            //UserNameText.Text = result[1].UserName;
-
-            for (int i = 0; i < result.Count; i++)
+            for (int i = 0; i < user.Count; i++)
             {
-                if (result[i].UserName.Trim() == UserNameText.Text && result[i].Password.Trim() == PasswordText.Password)
+                if (user[i].UserName.Trim() == UserNameText.Text && user[i].Password.Trim() == PasswordText.Password)
                 {
-                    UserNameText.Text = "Loged In";
-
+                    GlobalVariables.user = user[i];
                     GlobalVariables.LogedIn = true;
-                    GlobalVariables.logedUserName = result[i].UserName;
-                    GlobalVariables.logedFirstName = result[i].FirstName;
-                    GlobalVariables.logedId = result[i].ID;
-                    GlobalVariables.isAdmin = result[i].IsAdmin;
+                    NavigationService.Navigate(new MainPage());
                 }
             }
 
-            UserNameText.Text = GlobalVariables.isAdmin.ToString();
-
-            if (!GlobalVariables.LogedIn)
-                UserNameText.Text = "Not";
+            if (LoginEvent != null)
+            {
+                LoginEvent(this, e);
+            } 
         }
 
         private void RegisterBtn_Click(object sender, RoutedEventArgs e)

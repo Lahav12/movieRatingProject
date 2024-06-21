@@ -70,7 +70,7 @@ namespace ViewModel
 
                 while (_reader.Read())
                 {
-                    person = new Actor();
+                    person = new Person();
 
                     person.ID = Convert.ToInt32(_reader["personID"]);
                     person.FirstName = Convert.ToString(_reader["firstName"]);

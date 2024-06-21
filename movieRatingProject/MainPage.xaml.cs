@@ -40,7 +40,7 @@ namespace movieRatingProject
                     Rating = result[i].Rating,
                     Duration = result[i].Duration,
                     Genre = result[i].Genre,
-                    ReleaseDate = result[i].ReleaseDate
+                    Year = result[i].Year
                 });
             }
         }

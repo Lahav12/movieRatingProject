@@ -91,6 +91,7 @@
                         </Style>
                     </Button.Style>
                 </Button>
+
                 <Button x:Name="RegisterBtn"
                         Content="Register?"
                          Margin="108,5,104,5"
@@ -98,7 +99,10 @@
                         Background="White"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Center"
-                        Click="RegisterBtn_Click"/>
+                       Click="RegisterBtn_Click"
+                        
+                        />
+
             </StackPanel>
         </Border>
     </Grid>

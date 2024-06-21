@@ -8,7 +8,7 @@ using Model;
 
 namespace ViewModel
 {
-    class CharacterDB : BaseDB
+    public class CharacterDB : BaseDB
     {
         public CharacterDB() : base("tblCharacters")
         {
@@ -33,7 +33,7 @@ namespace ViewModel
 
         public CharacterList SelectByMovie(int id)
         {
-            _command.CommandText = string.Format("select tblMovies.* from tblCharacters inner join tblMovies on" +
+            _command.CommandText = string.Format("select tblCharacters.* from tblMovies inner join tblCharacters on " +
                 "tblMovies.movieID = tblCharacters.movieID WHERE tblCharacters.movieID = {0} ", id);
             CharacterList lst = Select();
             return lst;
@@ -62,7 +62,14 @@ namespace ViewModel
                 {
                     character = new Character();
 
-                    character.ID = Convert.ToInt32(_reader["id"]);
+                    character.ID = Convert.ToInt32(_reader["personID"]);
+
+                    PersonDB personDB = new PersonDB();
+                    Person person = personDB.SelectByID(character.ID);
+
+                    character.FirstName = person.FirstName;
+                    character.LastName = person.LastName;
+
 
                     if (_reader["movieID"] != DBNull.Value)
                     {

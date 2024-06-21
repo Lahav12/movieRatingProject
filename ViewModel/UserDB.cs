@@ -59,11 +59,13 @@ namespace ViewModel
             return false;
         }
 
-        public UserList SelectByID(int id)
+        public User SelectByID(int id)
         {
-            _command.CommandText = string.Format("SELECT * from {0} WHERE personID = {1}", _tableName, id);
-            UserList lst = Select();
-            return lst;
+            _command.CommandText = string.Format("SELECT tblUsers.*, tblPersons.* FROM tblUsers " +
+            "INNER JOIN tblPersons ON tblUsers.personID = tblPersons.personID " +
+            "WHERE tblUsers.personID = {0}", id);
+            UserList user = Select();
+            return user.FirstOrDefault();
         }
 
         public UserList SelectByFirstName(string firstName)
@@ -90,10 +92,10 @@ namespace ViewModel
             return lst.FirstOrDefault();
         }
 
-        public UserList SelectByUserName(string userName)
+        public User SelectByUserName(string userName)
         {
             _command.CommandText = string.Format(" SELECT * from {0} WHERE userName = {1}", _tableName, userName);
-            UserList lst = Select();
+            User lst = Select().FirstOrDefault();
             return lst;
         }
 
@@ -111,8 +113,6 @@ namespace ViewModel
             return lst;
         }
 
-
-
         public UserList Select()
         {
             UserList list = new UserList();
@@ -121,35 +121,34 @@ namespace ViewModel
                 _command.Connection = _connection;
                 _connection.Open();
 
-                _reader = _command.ExecuteReader(); ;
-                User user;
+                _reader = _command.ExecuteReader();
 
                 while (_reader.Read())
                 {
-                    user = new User();
+                    User user = new User();
 
-
-
-                    //tblPerson
+                    // Reading values directly from _reader
+                    user.ID = Convert.ToInt32(_reader["personID"]); // Assuming personID is retrieved from _reader
                     user.FirstName = _reader["firstName"].ToString();
                     user.LastName = _reader["lastName"].ToString();
                     user.DateOfBirth = Convert.ToDateTime(_reader["dateOfBirth"]);
-                    user.ID = Convert.ToInt32(_reader["personID"]);
-                    //מה עושים עם תמונה?
 
-                    //tblUser
+                    // Reading values specific to User
                     user.Email = _reader["email"].ToString();
                     user.Password = _reader["password"].ToString();
                     user.UserName = _reader["userName"].ToString();
                     user.Phone = _reader["phone"].ToString();
                     user.IsAdmin = Convert.ToBoolean(_reader["isAdmin"]);
 
+                    // Optionally, retrieve associated Person if needed
+                    // PersonDB personDB = new PersonDB();
+                    // user.Person = personDB.SelectByID(user.ID);
+
                     list.Add(user);
                 }
             }
             catch (Exception ex)
             {
-
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
             finally
@@ -159,7 +158,57 @@ namespace ViewModel
                 if (_connection.State == System.Data.ConnectionState.Open)
                     _connection.Close();
             }
+
             return list;
         }
+
+        //public UserList Select()
+        //{
+        //    UserList list = new UserList();
+        //    try
+        //    {
+        //        _command.Connection = _connection;
+        //        _connection.Open();
+
+        //        _reader = _command.ExecuteReader(); ;
+        //        User user;
+
+        //        while (_reader.Read())
+        //        {
+        //            user = new User();
+
+        //            //tblPerson
+        //            //user.FirstName = _reader["firstName"].ToString();
+        //            //user.LastName = _reader["lastName"].ToString();
+        //            //user.DateOfBirth = Convert.ToDateTime(_reader["dateOfBirth"]);
+        //            //user.ID = Convert.ToInt32(_reader["personID"]);
+        //            PersonDB personDB = new PersonDB();
+        //            Person person = personDB.SelectByID(user.ID);
+        //            //מה עושים עם תמונה?
+
+        //            //tblUser
+        //            user.Email = _reader["email"].ToString();
+        //            user.Password = _reader["password"].ToString();
+        //            user.UserName = _reader["userName"].ToString();
+        //            user.Phone = _reader["phone"].ToString();
+        //            user.IsAdmin = Convert.ToBoolean(_reader["isAdmin"]);
+
+        //            list.Add(user);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        System.Diagnostics.Debug.WriteLine(ex.Message);
+        //    }
+        //    finally
+        //    {
+        //        if (_reader != null)
+        //            _reader.Close();
+        //        if (_connection.State == System.Data.ConnectionState.Open)
+        //            _connection.Close();
+        //    }
+        //    return list;
+        //}
     }
 }

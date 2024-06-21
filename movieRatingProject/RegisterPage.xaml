@@ -9,7 +9,7 @@
       Title="RegisterPage">
 
     <Grid>
-        <Border Height="400"
+        <Border Height="600"
                 Width="500"
                 Background="White"
                 CornerRadius="6">
@@ -39,6 +39,11 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -132,7 +137,7 @@
                   HorizontalAlignment="Left"
                   Text=""/>
 
-                    <!--<TextBlock Text="Phone"
+                    <TextBlock Text="Phone"
                      Grid.Column="0"
                      Grid.Row="6"
                      Margin="0,15"
@@ -144,8 +149,19 @@
                   Width="185"
                   BorderThickness="0,0,0,1"
                   HorizontalAlignment="Left"
-                  Text=""/>-->
+                  Text=""/>
+
+                    <TextBlock Text="Date Of Birth"
+                               Grid.Column="1"
+                               Grid.Row="6"
+                               Margin="0,15"
+                               HorizontalAlignment="Left"/>
+                    <DatePicker x:Name="DateText"  Grid.Row="7" Grid.Column="1"/>
+
                 </Grid>
+
+                <TextBlock x:Name="ErrorTextBlock" Foreground="Red" Margin="10"/>
+                <!--<Button x:Name="uploadImageBtn" Content="Upload Image" Click="uploadImageBtn_Click"/>-->
 
                 <Button x:Name="RegisterBtn" 
                     Content="Register" 
