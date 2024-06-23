@@ -68,5 +68,38 @@ namespace ViewModel
             }
             return list;
         }
+
+        public bool CreateActor(Actor actor)
+        {
+            try
+            {
+                PersonDB pdb = new PersonDB();
+                int pid = pdb.CreatePerson(actor);
+
+                _command.Connection = _connection;
+                _connection.Open();
+
+                _command.CommandText = string.Format("insert into tblActors (personID) " +
+                    "values ({0});"
+                   , pid);
+                _command.ExecuteNonQuery();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (_reader != null)
+                    _reader.Close();
+                if (_connection.State == System.Data.ConnectionState.Open)
+                    _connection.Close();
+            }
+
+            return false;
+        }
     }
 }

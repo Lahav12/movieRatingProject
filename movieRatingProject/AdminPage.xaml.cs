@@ -25,52 +25,24 @@ namespace movieRatingProject
     /// </summary>
     public partial class AdminPage : Page
     {
-        public string x;
-        private byte[] imageBytes;
-
         public AdminPage()
         {
             InitializeComponent();
         }
 
-        private void CreateFilmBtn_Click(object sender, RoutedEventArgs e)
+        private void MovieList_Click(object sender, RoutedEventArgs e)
         {
-            MovieDB movieDB = new MovieDB();
-            int id = movieDB.CreateMovie(new Movie
-            {
-                MovieName = this.FilmNameText.Text,
-                Genre = this.FilmGenreText.Text,
-                Duration = 90,
-                Description = this.FilmDescriptionText.Text,
-                Year = Convert.ToInt32(this.FilmYearText.Text),
-                PosterPath = x
-            });
+            NavigationService.Navigate(new AdminMovieList());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddList_Click(object sender, RoutedEventArgs e)
         {
-            var t = Directory.GetCurrentDirectory();
-            OpenFileDialog op = new OpenFileDialog();
-            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
-              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-              "Portable Network Graphic (*.png)|*.png";
-            
-            if (op.ShowDialog() == true)
-            {
-                string appPath = @"..\..\Posters\";
-                var fileNameToSave =  op.SafeFileName;
-                //ImageUrl.Text = op.FileName;
-                var imagePath = System.IO.Path.Combine(appPath + fileNameToSave);
-                {
-                    Directory.CreateDirectory(appPath);
-                }
-               // x = fileNameToSave; //Add Image path to user
-                x = op.FileName;
-                //File.Copy(op.FileName, imagePath,true);
+            NavigationService.Navigate(new AdminAddFilm());
+        }
 
-              //  imageBytes = File.ReadAllBytes(op.FileName);
-
-            }
+        private void UserList_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AdminUserList());
         }
     }
 }

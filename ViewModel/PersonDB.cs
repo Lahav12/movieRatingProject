@@ -94,6 +94,30 @@ namespace ViewModel
             }
             return list;
         }
+
+        public void RemovePerson(int id)
+        {
+            try
+            {
+                _command.Connection = _connection;
+                _connection.Open();
+
+                _command.CommandText = string.Format("DELETE FROM tblPersons WHERE personID = '{0}'", id);
+
+                _command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (_reader != null)
+                    _reader.Close();
+                if (_connection.State == System.Data.ConnectionState.Open)
+                    _connection.Close();
+            }
+        }
     }
 
 }

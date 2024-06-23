@@ -40,9 +40,10 @@ namespace movieRatingProject
 
             this.DescriptionText.Text = movie.Description;
             this.RatingText.Text = movie.Rating.ToString();
-            this.MovieTitle.Content = movie.MovieName;
+            this.MovieTitle.Text = movie.MovieName;
             this.Year.Text = movie.Year.ToString();
             this.Genre.Text = movie.Genre;
+            this.DurationText.Text = movie.Duration.ToString() + " Min";
 
             this.PosterImage.Source = new BitmapImage(new Uri(movie.PosterPath, UriKind.RelativeOrAbsolute));
 

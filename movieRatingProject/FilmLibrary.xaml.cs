@@ -31,9 +31,9 @@ namespace movieRatingProject
 
             movieList.ItemsSource = movies;
 
-          //  List<ImdbMovie> topMovies = ServiceApi.GetTopMovies();
-          
-          //  string topMovieString = $"Top 3 Movies At IMDB:\n1.{topMovies[0].Title}\n2.{topMovies[1].Title}\n3.{topMovies[2].Title}";
+            //List<ImdbMovie> topMovies = ServiceApi.GetTopMovies();
+
+            //string topMovieString = $"Top 3 Movies At IMDB:\n1.{topMovies[0].Title}\n2.{topMovies[1].Title}\n3.{topMovies[2].Title}";
             //TopMovieBox.Text = topMovieString;
         }
 

@@ -83,8 +83,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdminAddFilm.xaml.cs">
+      <DependentUpon>AdminAddFilm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminMovieList.xaml.cs">
+      <DependentUpon>AdminMovieList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdminUserList.xaml.cs">
+      <DependentUpon>AdminUserList.xaml</DependentUpon>
     </Compile>
     <Compile Include="FilmLibrary.xaml.cs">
       <DependentUpon>FilmLibrary.xaml</DependentUpon>
@@ -96,7 +105,19 @@
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ServiceApi.cs" />
+    <Page Include="AdminAddFilm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminMovieList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdminPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdminUserList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -207,19 +228,7 @@
     <Folder Include="Assets\UsersImages\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Posters\pulp fiction.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Posters\reservoir dogs.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Posters\avengers endgame.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Posters\the big lebowski.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Posters\la la land.jpg" />
+    <Resource Include="Assets\log out.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

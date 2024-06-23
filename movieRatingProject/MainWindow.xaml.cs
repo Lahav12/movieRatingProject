@@ -31,24 +31,10 @@ namespace movieRatingProject
             UpdateMenu();
         }
 
-        private void HamburgerMenuItem_Selected_3(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void HamburgerMenuItem_Selected_4(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Item2_Selected(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void HomeItem_Selected(object sender, RoutedEventArgs e)
         {
             this.myFrame.Navigate(new FilmLibrary());
+            
         }
 
         private void AdminPage_Selected(object sender, RoutedEventArgs e)
@@ -80,7 +66,7 @@ namespace movieRatingProject
             GlobalVariables.user = null;
             GlobalVariables.LogedIn = false;
             UpdateMenu();
-            this.myFrame.Navigate(new FilmLibrary()); // Navigate to a home or login page after logout
+            this.myFrame.Navigate(new LoginPage()); // Navigate to a home or login page after logout
         }
 
         private void UpdateMenu()

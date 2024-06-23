@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:movieRatingProject"
         xmlns:HamburgerMenu="clr-namespace:HamburgerMenu;assembly=HamburgerMenu"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="1000">
 
 
     <Grid >
@@ -15,7 +15,7 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <HamburgerMenu:HamburgerMenu x:Name="MyMenu"  MenuIconColor="White" SelectionIndicatorColor="Pink" MenuItemForeground="Black" HorizontalAlignment="Left" Grid.Column="0" MaxWidth="120" >
+        <HamburgerMenu:HamburgerMenu x:Name="MyMenu"  MenuIconColor="White" SelectionIndicatorColor="Pink" MenuItemForeground="Black" HorizontalAlignment="Left" Grid.Column="0" MaxWidth="200" >
             <HamburgerMenu:HamburgerMenu.Background>
                 <ImageBrush ImageSource="Assets\menuBackground.jpg" Stretch="None" x:Name="backgroundImg"/>
             </HamburgerMenu:HamburgerMenu.Background>
@@ -24,13 +24,12 @@
                 <HamburgerMenu:HamburgerMenuItem x:Name="Dummy" Text="Dummy"  Visibility="Collapsed" />
                 <HamburgerMenu:HamburgerMenuItem x:Name="home" Icon="Assets/home.png" Text="Film Library" SelectionCommand="{Binding ElementName=this_}" Selected="HomeItem_Selected" />
                 <HamburgerMenu:HamburgerMenuItem x:Name="AdminBtn" Icon="Assets/y.jpg" Text="Admin Page" SelectionCommand="{Binding ElementName=this_}" Selected="AdminPage_Selected" />
-                <HamburgerMenu:HamburgerMenuItem Icon="Assets/favorite.png" Text="Page2" SelectionCommand="{Binding ElementName=this_}" Selected="Item2_Selected" />
-                <!--<HamburgerMenu:HamburgerMenuItem  x:Name="Backward" Icon="Assets/Left.png"  Text="Backward" ToolTip="Backward"  Selected="HamburgerMenuItem_Selected_3" SelectionCommand="{Binding ElementName=this_}" />-->
-                <HamburgerMenu:HamburgerMenuItem  x:Name="LogOut" Icon="Assets/Right.png"  Text="Log Out" ToolTip="Forward" Selected="Logout_Selected"  SelectionCommand="{Binding ElementName=this_}" />
+
+                <HamburgerMenu:HamburgerMenuItem  x:Name="LogOut" Icon="Assets/log out.png"  Text="Log Out" ToolTip="Forward" Selected="Logout_Selected" SelectionCommand="{Binding ElementName=this_}" />
             </HamburgerMenu:HamburgerMenu.Content>
         </HamburgerMenu:HamburgerMenu>
 
-        <Frame x:Name="myFrame" Grid.Column="1" Source="MainPage.xaml"  />
-        <!--<Frame x:Name="myFrame" Grid.Column="1" Source="Home.xaml" NavigationUIVisibility="Hidden" />-->
+        <Frame x:Name="myFrame" Grid.Column="1" Source="FilmLibrary.xaml"  />
+        
     </Grid>
 </Window>

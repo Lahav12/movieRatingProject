@@ -39,7 +39,7 @@ namespace movieRatingProject
                 {
                     GlobalVariables.user = user[i];
                     GlobalVariables.LogedIn = true;
-                    NavigationService.Navigate(new MainPage());
+                    NavigationService.Navigate(new FilmLibrary());
                 }
             }
 
